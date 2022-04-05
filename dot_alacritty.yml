@@ -5,39 +5,38 @@ font:
 key_bindings:
   - { key: N, mods: Control|Shift, action: CreateNewWindow }
 
-# VSCode's integrated terminal default colors
-# Primary and dimmed colors needed
-
+# onedarkpro.nvim - onedark
+# https://github.com/olimorris/onedarkpro.nvim/blob/main/extras/alacritty_onedark.yml
 colors:
-  # Default colors
   primary:
-    background: '#1e1e1e' #Background from Dark Theme
-    foreground: '#cccccc'
+    background: "#282c34"
+    foreground: "#abb2bf"
 
-  # Selection colors
+  normal:
+    black: "#282c34"
+    red: "#e06c75"
+    green: "#98c379"
+    yellow: "#e5c07b"
+    blue: "#61afef"
+    magenta: "#c678dd"
+    cyan: "#56b6c2"
+    white: "#abb2bf"
+
+  bright:
+    black: "#3f3f3f"
+    red: "#e06c75"
+    green: "#98c379"
+    yellow: "#e5c07b"
+    blue: "#61afef"
+    magenta: "#c678dd"
+    cyan: "#56b6c2"
+    white: "#bfc5ce"
+
+  cursor:
+    text: CellBackground
+    cursor: "CellForeground" #CellForeground # syntax-cursor-color
+
   selection:
     text: CellForeground
-    background: '#565656'
-
-  # Normal colors
-  normal:
-    black:   '#000000'
-    red:     '#cd3131'
-    green:   '#0dbc79'
-    yellow:  '#e5e510'
-    blue:    '#2472c8'
-    magenta: '#bc3fbc'
-    cyan:    '#11a8cd'
-    white:   '#e5e5e5'
-
-  # Bright colors
-  bright:
-    black:   '#666666'
-    red:     '#f14c4c'
-    green:   '#23d18b'
-    yellow:  '#f5f543'
-    blue:    '#3b8eea'
-    magenta: '#d670d6'
-    cyan:    '#29b8db'
-    white:   '#e5e5e5'
+    background: "#3e4452"
 

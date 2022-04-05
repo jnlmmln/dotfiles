@@ -137,6 +137,10 @@ format = '\[[$symbol($version)]($style)\]'
 [scala]
 format = '\[[$symbol($version)]($style)\]'
 
+[status]
+disabled = false
+format = '[$symbol $status]($style)'
+
 [sudo]
 format = '\[[as $symbol]\]'
 

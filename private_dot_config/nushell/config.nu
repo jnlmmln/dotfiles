@@ -48,7 +48,7 @@ let-env USE_EDITOR = "nvim"
 #source ~/.zoxide.nu
 
 # For now an adjusted file is used
-# use ~/.zoxide-eq.nu [z, zi]
+use ~/.zoxide-eq.nu [z, zi]
 
 # def create_left_prompt [] {
 #     let path_segment = ($env.PWD)
