@@ -3,24 +3,14 @@
 alias la = ls -la
 alias ll = ls -l
 
-def-env pathvar-add [path] {
-  let-env PATH = ($env.PATH | prepend ($path | path expand))
-}
-
-pathvar-add [
-  "~/.local/bin",
-  "~/.fzf/bin"
-]
-
+# FNM
 def-env fnm-env [] {
   fnm env --shell bash | lines | str substring '7,' | split column '=' name value | str trim -c '"' | where name != PATH | | each { |e| let-env "$e.name" = "$e.value"}
 }
 fnm-env
-
 pathvar-add (fnm env --shell bash | lines | str substring '7,' | split column '=' name value | where name == PATH | get value | split column ':' path | str trim -c '"' | get path)
 
-let-env LS_COLORS = (vivid generate molokai | first)
-
+# STARSHIP
 mkdir ~/.cache/starship
 starship init nu | save ~/.cache/starship/init.nu
 source ~/.cache/starship/init.nu
@@ -35,13 +25,6 @@ let-env PROMPT_COMMAND = {
   do $old_prompt_command
 }
 
-let-env FZF_BASE = "~/.fzf"
-let-env FZF_DEFAULT_COMMAND = "rg --files --hidden --glob \"!.git/*\""
-let-env FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT = 1
-let-env VISUAL = "nvim"
-let-env EDITOR = "nvim"
-let-env USE_EDITOR = "nvim"
-
 # TODO Use the generated file if zoxide supports nushell 0.60
 # https://github.com/ajeetdsouza/zoxide/issues/345
 #zoxide init nushell --hook prompt | save ~/.zoxide.nu
@@ -50,60 +33,6 @@ let-env USE_EDITOR = "nvim"
 # For now an adjusted file is used
 use ~/.zoxide-eq.nu [z, zi]
 
-# def create_left_prompt [] {
-#     let path_segment = ($env.PWD)
-#
-#     $path_segment
-# }
-
-# def create_right_prompt [] {
-#     let time_segment = ([
-#         (date now | date format '%m/%d/%Y %r')
-#     ] | str collect)
-#
-#     $time_segment
-# }
-
-# Use nushell functions to define your right and left prompt
-# let-env PROMPT_COMMAND = { create_left_prompt }
-# let-env PROMPT_COMMAND_RIGHT = { create_right_prompt }
-
-# The prompt indicators are environmental variables that represent
-# the state of the prompt
-# let-env PROMPT_INDICATOR = "DEFAULT〉"
-# let-env PROMPT_INDICATOR_VI_INSERT = "VI_INSERT: "
-# let-env PROMPT_INDICATOR_VI_NORMAL = "VI_NORMAL〉"
-# let-env PROMPT_MULTILINE_INDICATOR = "MULTI::: "
-
-# Specifies how environment variables are:
-# - converted from a string to a value on Nushell startup (from_string)
-# - converted from a value back to a string when running external commands (to_string)
-# Note: The conversions happen *after* config.nu is loaded
-let-env ENV_CONVERSIONS = {
-  "PATH": {
-    from_string: { |s| $s | split row (char esep) }
-    to_string: { |v| $v | str collect (char esep) }
-  }
-  "Path": {
-    from_string: { |s| $s | split row (char esep) }
-    to_string: { |v| $v | str collect (char esep) }
-  }
-}
-
-# Directories to search for scripts when calling source or use
-#
-# By default, <nushell-config-dir>/scripts is added
-let-env NU_LIB_DIRS = [
-    ($nu.config-path | path dirname | path join 'scripts')
-]
-
-# Directories to search for plugin binaries when calling register
-#
-# By default, <nushell-config-dir>/plugins is added
-let-env NU_PLUGIN_DIRS = [
-    ($nu.config-path | path dirname | path join 'plugins')
-]
-
 module completions {
   # Custom completions for external commands (those outside of Nushell)
   # Each completions has two parts: the form of the external command, including its flags and parameters
@@ -111,7 +40,7 @@ module completions {
   #
   # This is a simplified version of completions for git branches and git remotes
   def "nu-complete git branches" [] {
-    ^git branch | lines | each { |line| $line | str find-replace '\* ' '' | str trim }
+    ^git branch | lines | each { |line| $line | str replace '\* ' '' | str trim }
   }
 
   def "nu-complete git remotes" [] {
@@ -247,21 +176,21 @@ let $config = {
   filesize_format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
   edit_mode: emacs # emacs, vi
   max_history_size: 10000
-  menu_config: {
-    columns: 4
-    col_width: 20   # Optional value. If missing all the screen width is used to calculate column width
-    col_padding: 2
-    text_style: green
-    selected_text_style: green_reverse
-    marker: "| "
-  }
-  history_config: {
-    page_size: 10
-    selector: "!"
-    text_style: green
-    selected_text_style: green_reverse
-    marker: "? "
-  }
+  # menu_config: {
+  #   columns: 4
+  #   col_width: 20   # Optional value. If missing all the screen width is used to calculate column width
+  #   col_padding: 2
+  #   text_style: green
+  #   selected_text_style: green_reverse
+  #   marker: "| "
+  # }
+  # history_config: {
+  #   page_size: 10
+  #   selector: "!"
+  #   text_style: green
+  #   selected_text_style: green_reverse
+  #   marker: "? "
+  # }
   keybindings: [
     {
       name: completion_menu
