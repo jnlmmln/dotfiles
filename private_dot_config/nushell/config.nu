@@ -27,11 +27,11 @@ let-env PROMPT_COMMAND = {
 
 # TODO Use the generated file if zoxide supports nushell 0.60
 # https://github.com/ajeetdsouza/zoxide/issues/345
-#zoxide init nushell --hook prompt | save ~/.zoxide.nu
-#source ~/.zoxide.nu
+# zoxide init nushell --hook prompt | save ~/.zoxide.nu
+source ~/.zoxide.nu
 
 # For now an adjusted file is used
-use ~/.zoxide-eq.nu [z, zi]
+# use ~/.zoxide-eq.nu [z, zi]
 
 module completions {
   # Custom completions for external commands (those outside of Nushell)

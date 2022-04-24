@@ -40,10 +40,15 @@ let-env FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT = 1
 let-env VISUAL = "nvim"
 let-env EDITOR = "nvim"
 let-env USE_EDITOR = "nvim"
+let-env PNPM_HOME = "/home/jnlmmln/.local/share/pnpm"
 
 # # let-env PATH = ($env.PATH | prepend '/some/path')
 # Path vars
 pathvar-add [
   "~/.local/bin",
-  "~/.fzf/bin"
+  "~/.fzf/bin",
+  "~/.local/share/pnpm"
 ]
+
+zoxide init nushell --hook prompt | save ~/.zoxide.nu
+
