@@ -18,13 +18,6 @@ let-env PROMPT_COMMAND = {
   do $old_prompt_command
 }
 
-# TODO Use the generated file if zoxide supports nushell 0.60
-# https://github.com/ajeetdsouza/zoxide/issues/345
-# zoxide init nushell --hook prompt | save ~/.zoxide.nu
-source ~/.zoxide.nu
-
-# For now an adjusted file is used
-# use ~/.zoxide-eq.nu [z, zi]
 
 module completions {
   # Custom completions for external commands (those outside of Nushell)
@@ -169,6 +162,7 @@ let-env config = {
   filesize_format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, zb, zib, auto
   edit_mode: emacs # emacs, vi
   max_history_size: 10000
+  buffer_editor: vi
   # menu_config: {
   #   columns: 4
   #   col_width: 20   # Optional value. If missing all the screen width is used to calculate column width
