@@ -52,3 +52,11 @@ pathvar-add [
 
 zoxide init nushell --hook prompt | save ~/.zoxide.nu
 
+# FNM
+def-env fnm-env [] {
+  fnm env --shell bash | lines | str substring '7,' | split column '=' name value | str trim -c '"' | where name != PATH | reduce -f {} {|e, acc| $acc | merge {{$e.name: $e.value}}} |load-env
+}
+fnm-env
+let fnm-path = (fnm env --shell bash | lines | str substring '7,' | split column '=' name value | where name == PATH | get value | split column ':' path | str trim -c '"' | get path)
+let-env PATH = ($env.PATH | prepend ($fnm-path))
+

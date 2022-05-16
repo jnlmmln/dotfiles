@@ -3,13 +3,6 @@
 alias la = ls -la
 alias ll = ls -l
 
-# FNM
-def-env fnm-env [] {
-  fnm env --shell bash | lines | str substring '7,' | split column '=' name value | str trim -c '"' | where name != PATH | | each { |e| let-env "$e.name" = "$e.value"}
-}
-fnm-env
-pathvar-add (fnm env --shell bash | lines | str substring '7,' | split column '=' name value | where name == PATH | get value | split column ':' path | str trim -c '"' | get path)
-
 # STARSHIP
 mkdir ~/.cache/starship
 starship init nu | save ~/.cache/starship/init.nu
@@ -160,7 +153,7 @@ let default_theme = {
 }
 
 # The default config record. This is where much of your global configuration is setup.
-let $config = {
+let-env config = {
   filesize_metric: false
   table_mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
   use_ls_colors: true
