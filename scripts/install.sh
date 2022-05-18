@@ -6,7 +6,6 @@ packages=(
   "curl",
   "git",
   "gcc",
-  "neovim",
   "pkg-config",
   "libssl-dev",
   "ibxcb-composite0-dev",
@@ -51,27 +50,17 @@ sudo -v
 # Keep-alive: update existing sudo time stamp if set, otherwise do nothing.
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-echo "Add nvim ppa"
-sudo apt install software-properties-common
-sudo add-apt-repository ppa:neovim-ppa/stable
-sudo apt update
 
 echo "Install missing apt packages"
 install_missing_packages || echo "failed to install missing packages"
 
-echo "Set neovim as the default editor"
-sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-sudo update-alternatives --config vi
-sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-sudo update-alternatives --config vim
-sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
-sudo update-alternatives --config editor
 
 # https://www.rust-lang.org/learn/get-started
 echo "Install rust:"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 if exists cargo; then
+  cargo install cargo-update
   cargo install topgrade
   cargo install ripgrep
   cargo install zoxide
@@ -96,6 +85,14 @@ chsh -s $(which nu)
 echo "TODOS:"
 echo "\t- Nerdfont https://www.nerdfonts.com/"
 echo "\t- GPU accelerated terminal emulator https://alacritty.org/"
+echo "\t- Install Neovim https://neovim.io/"
+echo "\t- Set neovim as the default editor"
+echo "\t\t- sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60"
+echo "\t\t- sudo update-alternatives --config vi"
+echo "\t\t- sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60"
+echo "\t\t- sudo update-alternatives --config vim"
+echo "\t\t- sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60"
+echo "\t\t- sudo update-alternatives --config editor"
 
 echo "Setup dotfiles -------------------------------------------------"
 
