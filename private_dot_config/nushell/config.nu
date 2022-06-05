@@ -33,6 +33,10 @@ module completions {
     ^git remote | lines | each { |line| $line | str trim }
   }
 
+  def "nu-complete pnpm run" [] {
+   open package.json | get scripts | columns
+  }
+
   export extern "git checkout" [
     branch?: string@"nu-complete git branches" # name of the branch to checkout
     -b: string                                 # create and checkout a new branch
@@ -86,6 +90,21 @@ module completions {
     --push-option(-o): string                  # option to transmit
     --ipv4(-4)                                 # use IPv4 addresses only
     --ipv6(-6)                                 # use IPv6 addresses only
+  ]
+
+  export extern "pnpm" [
+    script?: string@"nu-complete pnpm run"     # the name of the script to run
+    --version(-v): string                      # print version and exit
+    --help(-h): string                         # print help and exit
+  ]
+
+  export extern "npm" [
+    --version(-v): string                      # print version and exit
+    --help(-h): string                         # print help and exit
+  ]
+
+  export extern "npm run" [
+    script?: string@"nu-complete pnpm run"     # the name of the script to run
   ]
 }
 
