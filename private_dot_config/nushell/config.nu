@@ -33,10 +33,6 @@ module completions {
     ^git remote | lines | each { |line| $line | str trim }
   }
 
-  def "nu-complete pnpm run" [] {
-   open package.json | get scripts | columns
-  }
-
   export extern "git checkout" [
     branch?: string@"nu-complete git branches" # name of the branch to checkout
     -b: string                                 # create and checkout a new branch
@@ -92,24 +88,35 @@ module completions {
     --ipv6(-6)                                 # use IPv6 addresses only
   ]
 
-  export extern "pnpm" [
-    script?: string@"nu-complete pnpm run"     # the name of the script to run
-    --version(-v): string                      # print version and exit
-    --help(-h): string                         # print help and exit
-  ]
+  # def "nu-complete pnpm run" [] {
+  #  open package.json | get scripts | columns
+  # }
 
-  export extern "npm" [
-    --version(-v): string                      # print version and exit
-    --help(-h): string                         # print help and exit
-  ]
+  # export extern "pnpm" [
+  #   script?: string@"nu-complete pnpm run"     # the name of the script to run
+  #   --version(-v): string                      # print version and exit
+  #   --help(-h): string                         # print help and exit
+  # ]
 
-  export extern "npm run" [
-    script?: string@"nu-complete pnpm run"     # the name of the script to run
-  ]
+  # export extern "npm" [
+  #   --version(-v): string                      # print version and exit
+  #   --help(-h): string                         # print help and exit
+  # ]
+
+  # export extern "npm run" [
+  #   script?: string@"nu-complete pnpm run"     # the name of the script to run
+  # ]
 }
 
 # Get just the extern definitions without the custom completion commands
-use completions *
+# use completions *
+
+# Use carapce as completer
+let external_completer = {|spans|
+  {
+    $spans.0: {carapace $spans.0 nushell $spans | from json } # default
+  } | get $spans.0 | each {|it| do $it}
+}
 
 # for more information on themes see
 # https://github.com/nushell/nushell/blob/main/docs/How_To_Coloring_and_Theming.md
@@ -182,6 +189,7 @@ let-env config = {
   edit_mode: emacs # emacs, vi
   max_history_size: 10000
   buffer_editor: vi
+  external_completer: $external_completer
   # menu_config: {
   #   columns: 4
   #   col_width: 20   # Optional value. If missing all the screen width is used to calculate column width
@@ -244,3 +252,4 @@ let-env config = {
 }
 
 source ~/.zoxide.nu
+
