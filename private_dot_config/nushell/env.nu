@@ -11,11 +11,11 @@ def-env pathvar-add [path] {
 let-env ENV_CONVERSIONS = {
   "PATH": {
     from_string: { |s| $s | split row (char esep) }
-    to_string: { |v| $v | str collect (char esep) }
+    to_string: { |v| $v | str join (char esep) }
   }
   "Path": {
     from_string: { |s| $s | split row (char esep) }
-    to_string: { |v| $v | str collect (char esep) }
+    to_string: { |v| $v | str join (char esep) }
   }
 }
 
@@ -41,13 +41,20 @@ let-env VISUAL = "nvim"
 let-env EDITOR = "nvim"
 let-env USE_EDITOR = "nvim"
 let-env PNPM_HOME = "/home/jnlmmln/.local/share/pnpm"
+let-env CAPACITOR_ANDROID_STUDIO_PATH = "/opt/android-studio/bin/studio.sh"
+let-env ANDROID_SDK_ROOT = "/home/jnlmmln/Android/Sdk"
+let-env JAVA_HOME = "/opt/android-studio/jre"
 
 # # let-env PATH = ($env.PATH | prepend '/some/path')
 # Path vars
 pathvar-add [
   "~/.local/bin",
   "~/.fzf/bin",
-  "~/.local/share/pnpm"
+  "~/.local/share/pnpm",
+  ($env.ANDROID_SDK_ROOT + "/tools/bin"),
+  ($env.ANDROID_SDK_ROOT + "/platform-tools"),
+  ($env.ANDROID_SDK_ROOT + "/emulator"),
+  ($env.ANDROID_SDK_ROOT + "/build-tools/33.0.0")
 ]
 
 zoxide init nushell --hook prompt | save ~/.zoxide.nu
