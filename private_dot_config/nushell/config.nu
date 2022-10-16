@@ -10,8 +10,10 @@ source ~/.cache/starship/init.nu
 
 let old_prompt_command = $env.PROMPT_COMMAND
 def prompt-pre-cmd [] {
-  ansi -o '0'; (char nf_folder1) + "  " + (pwd) + " | Alacritty"
-  ""
+  if $env.TERM == 'alacritty' {
+    ansi -o '0'; (char nf_folder1) + "  " + (pwd) + " | Alacritty"
+    ""
+  }
 }
 let-env PROMPT_COMMAND = {
   prompt-pre-cmd
