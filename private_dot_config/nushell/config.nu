@@ -1,6 +1,6 @@
 # Nushell Config File
 
-alias la = ls -la
+alias la = ls -a
 alias ll = ls -l
 
 # STARSHIP
