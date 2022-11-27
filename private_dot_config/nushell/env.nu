@@ -60,10 +60,17 @@ pathvar-add [
 zoxide init nushell --hook prompt | save ~/.zoxide.nu
 
 # FNM
-def-env fnm_env [] {
-  fnm env --shell bash | lines | str substring '7,' | split column '=' name value | str trim -c '"' | where name != PATH | reduce -f {} {|e, acc| $acc | merge {{$e.name: $e.value}}} |load-env
+# def-env setup_fnm [] {
+#   fnm env --shell bash | lines | str substring '7,' | split column '=' name value | str trim -c '"' | where name != PATH | reduce -f {} {|e, acc| $acc | merge {{$e.name: $e.value}}} |load-env
+# }
+# setup_fnm
+
+def-env setup_fnm [] {
+  fnm env --json | from json | load-env
+  let-env PATH = ($env.PATH | prepend ($env.FNM_MULTISHELL_PATH + "/bin"))
 }
-fnm_env
-let fnm_path = (fnm env --shell bash | lines | str substring '7,' | split column '=' name value | where name == PATH | get value | split column ':' path | str trim -c '"' | get path)
-let-env PATH = ($env.PATH | prepend ($fnm_path))
+setup_fnm
+
+# let fnm_path = (fnm env --shell bash | lines | str substring '7,' | split column '=' name value | where name == PATH | get value | split column ':' path | str trim -c '"' | get path)
+# let-env PATH = ($env.PATH | prepend ($fnm_path))
 

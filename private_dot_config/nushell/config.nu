@@ -12,6 +12,9 @@ let old_prompt_command = $env.PROMPT_COMMAND
 def prompt-pre-cmd [] {
   if $env.TERM == 'alacritty' {
     ansi -o '0'; (char nf_folder1) + "  " + (pwd) + " | Alacritty"
+    if (".node-version" | path exists) || (".nvmrc" | path  exists) {
+      fnm use --silent-if-unchanged
+    }
     ""
   }
 }
