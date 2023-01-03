@@ -69,6 +69,7 @@ if exists cargo; then
   cargo install nu --all-features
   cargo install vivid
   cargo install gitui
+  cargo install bob-nvim
 fi
 
 echo "Install fzf"
@@ -85,7 +86,7 @@ chsh -s $(which nu)
 echo "TODOS:"
 echo "\t- Nerdfont https://www.nerdfonts.com/"
 echo "\t- GPU accelerated terminal emulator https://alacritty.org/"
-echo "\t- Install Neovim https://neovim.io/"
+echo "\t- Install Neovim https://neovim.io/ using bob"
 echo "\t- Set neovim as the default editor"
 echo "\t\t- sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60"
 echo "\t\t- sudo update-alternatives --config vi"

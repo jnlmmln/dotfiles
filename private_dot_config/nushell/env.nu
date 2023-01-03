@@ -33,7 +33,7 @@ let-env NU_PLUGIN_DIRS = [
     ($nu.config-path | path dirname | path join 'plugins')
 ]
 
-let-env LS_COLORS = (vivid generate molokai | first)
+let-env LS_COLORS = (vivid generate molokai | str trim)
 let-env FZF_BASE = "~/.fzf"
 let-env FZF_DEFAULT_COMMAND = "rg --files --hidden --glob \"!.git/*\""
 let-env FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT = 1
@@ -51,26 +51,18 @@ pathvar-add [
   "~/.local/bin",
   "~/.fzf/bin",
   "~/.local/share/pnpm",
+  "~/.local/share/neovim/bin",
   ($env.ANDROID_SDK_ROOT + "/tools/bin"),
   ($env.ANDROID_SDK_ROOT + "/platform-tools"),
   ($env.ANDROID_SDK_ROOT + "/emulator"),
   ($env.ANDROID_SDK_ROOT + "/build-tools/33.0.0")
 ]
 
-zoxide init nushell --hook prompt | save -f ~/.zoxide.nu
+#zoxide init nushell --hook prompt | save -f ~/.zoxide.nu
 
 # FNM
-# def-env setup_fnm [] {
-#   fnm env --shell bash | lines | str substring '7,' | split column '=' name value | str trim -c '"' | where name != PATH | reduce -f {} {|e, acc| $acc | merge {{$e.name: $e.value}}} |load-env
-# }
-# setup_fnm
-
 def-env setup_fnm [] {
   fnm env --json | from json | load-env
   let-env PATH = ($env.PATH | prepend ($env.FNM_MULTISHELL_PATH + "/bin"))
 }
 setup_fnm
-
-# let fnm_path = (fnm env --shell bash | lines | str substring '7,' | split column '=' name value | where name == PATH | get value | split column ':' path | str trim -c '"' | get path)
-# let-env PATH = ($env.PATH | prepend ($fnm_path))
-
