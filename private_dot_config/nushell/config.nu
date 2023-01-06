@@ -281,4 +281,5 @@ let-env config = {
 }
 
 source ~/.zoxide.nu
+source ~/scripts/jwt_decode.nu
 
