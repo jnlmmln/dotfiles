@@ -58,8 +58,6 @@ pathvar-add [
   ($env.ANDROID_SDK_ROOT + "/build-tools/33.0.0")
 ]
 
-#zoxide init nushell --hook prompt | save -f ~/.zoxide.nu
-
 # FNM
 def-env setup_fnm [] {
   fnm env --json | from json | load-env

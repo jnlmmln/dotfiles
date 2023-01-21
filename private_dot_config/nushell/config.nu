@@ -280,6 +280,8 @@ let-env config = {
   ]
 }
 
+zoxide init nushell --hook prompt | save -f ~/.zoxide.nu
 source ~/.zoxide.nu
+
 source ~/scripts/jwt_decode.nu
 
