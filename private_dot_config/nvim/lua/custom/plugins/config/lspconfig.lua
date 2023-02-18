@@ -139,7 +139,7 @@ rt.setup {
 }
 
 for _, lsp in ipairs(servers) do
-    if lsp == "sumneko_lua" or lsp == "rust_analyzer" then
+    if lsp == "lua_ls" or lsp == "rust_analyzer" then
         goto skip_to_next
     end
     local custom_config = custom_lsp_config[lsp];
