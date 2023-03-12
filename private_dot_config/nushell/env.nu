@@ -51,12 +51,15 @@ pathvar-add [
   "~/.local/bin",
   "~/.fzf/bin",
   "~/.local/share/pnpm",
-  "~/.local/share/neovim/bin",
+  "~/.local/share/neovim",
   ($env.ANDROID_SDK_ROOT + "/tools/bin"),
   ($env.ANDROID_SDK_ROOT + "/platform-tools"),
   ($env.ANDROID_SDK_ROOT + "/emulator"),
   ($env.ANDROID_SDK_ROOT + "/build-tools/33.0.0")
 ]
+
+# Alias
+alias vi = nvim
 
 # FNM
 def-env setup_fnm [] {
