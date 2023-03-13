@@ -1,7 +1,5 @@
 local autocmd = vim.api.nvim_create_autocmd
 
-print("ASDASDASDASD")
-
 vim.g.mapleader = "," -- Remap leader key
 vim.g.maplocalleader = " " -- Local leader is <Space>
 -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
