@@ -12,6 +12,7 @@ local sources = {
 
     -- toml
     b.formatting.taplo,
+    b.formatting.csharpier,
 
     -- webdev stuff
     b.formatting.prettier.with {
