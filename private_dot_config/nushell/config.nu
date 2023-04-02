@@ -1,26 +1,37 @@
 # Nushell Config File
 
-alias la = ls -a
-alias ll = ls -l
-
 # STARSHIP
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 source ~/.cache/starship/init.nu
 
-let old_prompt_command = $env.PROMPT_COMMAND
-def prompt-pre-cmd [] {
-  if $env.TERM == 'alacritty' {
-    ansi -o '0'; (char nf_folder1) + "  " + (pwd) + " | Alacritty"
-    if (".node-version" | path exists) or (".nvmrc" | path  exists) {
-      fnm use --silent-if-unchanged
-    }
-    ""
+# let old_prompt_command = $env.PROMPT_COMMAND
+# def prompt-pre-cmd [] {
+#   if $env.TERM == 'alacritty' {
+#     # ansi -o '0'; (char nf_folder1) + "  " + (pwd) + " | Alacritty"
+#     [(ansi title) (char nf_folder1) "  " (pwd) " | Wizterm"] | str join
+#     if (".node-version" | path exists) or (".nvmrc" | path  exists) {
+#       fnm use --silent-if-unchanged
+#     }
+#     ""
+#   }
+# }
+# let-env PROMPT_COMMAND = {
+#   prompt-pre-cmd
+#   do $old_prompt_command
+# }
+
+def on-pwd-changed [new_pwd] {
+  if $env.TERM_PROGRAM == 'WezTerm' {
+    [(ansi title) (char nf_folder1) "  " $new_pwd " | Wezterm"] | str join
+  } else if $env.TERM == 'alacritty' {
+    [(ansi title) (char nf_folder1) "  " $new_pwd " | Alacritty"] | str join
   }
-}
-let-env PROMPT_COMMAND = {
-  prompt-pre-cmd
-  do $old_prompt_command
+
+  if (".node-version" | path exists) or (".nvmrc" | path  exists) {
+    fnm use --silent-if-unchanged
+  }
+  ""
 }
 
 # Use carapce as completer
@@ -100,6 +111,11 @@ let-env config = {
   }
   rm: {
     always_trash: false
+  }
+  hooks: {
+    env_change: {
+        PWD: {|before, after| on-pwd-changed $after}
+    }
   }
   completions: {
     case_sensitive: false # set to true to enable case-sensitive completions

@@ -86,6 +86,7 @@ chsh -s $(which nu)
 echo "TODOS:"
 echo "\t- Nerdfont https://www.nerdfonts.com/"
 echo "\t- GPU accelerated terminal emulator https://alacritty.org/"
+echo "\t- WezTerm https://wezfurlong.org/wezterm/index.html"
 echo "\t- Install Neovim https://neovim.io/ using bob"
 echo "\t- Set neovim as the default editor"
 echo "\t\t- sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60"

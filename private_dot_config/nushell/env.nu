@@ -60,6 +60,9 @@ pathvar-add [
 
 # Alias
 alias vi = nvim
+alias wezterm = flatpak run org.wezfurlong.wezterm
+alias la = ls -a
+alias ll = ls -l
 
 # FNM
 def-env setup_fnm [] {
