@@ -2,7 +2,7 @@
 
 # STARSHIP
 mkdir ~/.cache/starship
-starship init nu | save -f ~/.cache/starship/init.nu
+starship init nu | str replace "let-env PROMPT_COMMAND = {" "let-env PROMPT_COMMAND = { ||" | str replace "let-env PROMPT_COMMAND_RIGHT = {" "let-env PROMPT_COMMAND_RIGHT = { ||" | save -f ~/.cache/starship/init.nu
 source ~/.cache/starship/init.nu
 
 # let old_prompt_command = $env.PROMPT_COMMAND
@@ -208,7 +208,7 @@ let-env config = {
   ]
 }
 
-zoxide init nushell --hook prompt | save -f ~/.zoxide.nu
+zoxide init nushell --hook prompt | str replace "append {" "append { ||" | save -f ~/.zoxide.nu
 source ~/.zoxide.nu
 
 source ~/scripts/jwt_decode.nu
