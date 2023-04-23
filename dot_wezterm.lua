@@ -26,12 +26,12 @@ config.font = wezterm.font_with_fallback {
 config.keys = {
   -- This will create a new split and run your default program inside it
   {
-    key = 'H',
+    key = 'J',
     mods = 'CTRL|SHIFT',
     action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
   },
   {
-    key = 'J',
+    key = 'H',
     mods = 'CTRL|SHIFT',
     action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
   },

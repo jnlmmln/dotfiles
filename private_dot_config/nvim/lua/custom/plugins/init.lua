@@ -213,6 +213,14 @@ return {
                 { name = "crates" },
             },
         },
+        formatting = {
+            format = function(_, vim_item)
+                local icons = require("nvchad_ui.icons").lspkind
+                vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
+                vim_item.abbr = string.sub(vim_item.abbr, 1, 80)
+                return vim_item
+            end,
+        },
         config = function()
             require "plugins.configs.cmp"
             local cmp = require 'cmp'
