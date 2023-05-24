@@ -22,7 +22,7 @@ source ~/.cache/starship/init.nu
 # }
 
 def on-pwd-changed [new_pwd] {
-  if $env.TERM_PROGRAM == 'WezTerm' {
+  if "TERM_PROGRAM" in $env and $env.TERM_PROGRAM == 'WezTerm' {
     [(ansi title) (char nf_folder1) "  " $new_pwd " | Wezterm"] | str join
   } else if $env.TERM == 'alacritty' {
     [(ansi title) (char nf_folder1) "  " $new_pwd " | Alacritty"] | str join
@@ -208,7 +208,7 @@ let-env config = {
   ]
 }
 
-zoxide init nushell --hook prompt | str replace "append {" "append { ||" | save -f ~/.zoxide.nu
+zoxide init nushell --hook prompt | save -f ~/.zoxide.nu
 source ~/.zoxide.nu
 
 source ~/scripts/jwt_decode.nu
