@@ -5,33 +5,16 @@ mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 source ~/.cache/starship/init.nu
 
-# let old_prompt_command = $env.PROMPT_COMMAND
-# def prompt-pre-cmd [] {
-#   if $env.TERM == 'alacritty' {
-#     # ansi -o '0'; (char nf_folder1) + "  " + (pwd) + " | Alacritty"
-#     [(ansi title) (char nf_folder1) "  " (pwd) " | Wizterm"] | str join
-#     if (".node-version" | path exists) or (".nvmrc" | path  exists) {
-#       fnm use --silent-if-unchanged
-#     }
-#     ""
-#   }
-# }
-# let-env PROMPT_COMMAND = {
-#   prompt-pre-cmd
-#   do $old_prompt_command
-# }
-
-def on-pwd-changed [new_pwd] {
+def prompt-pre-cmd [] {
   if "TERM_PROGRAM" in $env and $env.TERM_PROGRAM == 'WezTerm' {
-    [(ansi title) (char nf_folder1) "  " $new_pwd " | Wezterm"] | str join
+    print ([(ansi title) (char nf_folder1) "  " (pwd) " | WeZterm" (ansi reset)] | str join)
   } else if $env.TERM == 'alacritty' {
-    [(ansi title) (char nf_folder1) "  " $new_pwd " | Alacritty"] | str join
+    print ([(ansi title) (char nf_folder1) "  " (pwd) " | Alacritty" (ansi reset)] | str join)
   }
 
   if (".node-version" | path exists) or (".nvmrc" | path  exists) {
     fnm use --silent-if-unchanged
   }
-  ""
 }
 
 # Use carapce as completer
@@ -114,7 +97,7 @@ let-env config = {
   }
   hooks: {
     env_change: {
-        PWD: {|before, after| on-pwd-changed $after}
+      PWD:{ prompt-pre-cmd }
     }
   }
   completions: {
